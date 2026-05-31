@@ -29,7 +29,7 @@ public class TestAssembler : VerifyBase
         Assert.AreEqual(Arm64InstructionId.B_only_condbranch, instruction.Id);
         var operand1 = instruction.GetOperand(0);
         Assert.AreEqual(Arm64OperandKind.Enum, operand1.Kind);
-        
+
         var operand2 = instruction.GetOperand(1);
         Assert.AreEqual(Arm64OperandKind.Label, operand2.Kind);
 
@@ -760,7 +760,7 @@ public class TestAssembler : VerifyBase
         };
 
         var textWriter = new StringWriter();
-        
+
         disassembler.Disassemble(instructionBuffer, textWriter);
 
         var disassembledText = textWriter.ToString();
@@ -837,8 +837,11 @@ public class TestAssembler : VerifyBase
         //     ret                    // Return to caller
         asm.RET();
         asm.Assemble();
-
+#if NETFRAMEWORK
+        return MemoryMarshal.Cast<uint, byte>(bufferList.Instructions.ToArray()).ToArray();
+#else
         return MemoryMarshal.Cast<uint, byte>(CollectionsMarshal.AsSpan(bufferList.Instructions)).ToArray();
+#endif
     }
 
     private static int CurrentLine([CallerLineNumber] int lineNumber = 0) => lineNumber;

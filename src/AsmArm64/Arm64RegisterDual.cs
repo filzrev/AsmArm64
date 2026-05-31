@@ -1,3 +1,9 @@
+
+
+
+
+
+
 // Copyright (c) Alexandre Mutel. All rights reserved.
 // Licensed under the BSD-Clause 2 license.
 // See license.txt file in the project root for full license information.
@@ -6,14 +12,13 @@ using System.Runtime.CompilerServices;
 
 namespace AsmArm64;
 
+
 /// <summary>
 /// Represents a 64-bit register or the stack pointer.
 /// </summary>
 public readonly record struct Arm64RegisterXOrSP : IArm64Register
 {
-#pragma warning disable CS0649 // Field is never assigned to, and will always have its default value
     private readonly int _value;
-#pragma warning restore CS0649 // Field is never assigned to, and will always have its default value
     
     /// <inheritdoc />
     public Arm64RegisterKind Kind => (Arm64RegisterKind)(_value >> 8);
@@ -86,14 +91,13 @@ public readonly record struct Arm64RegisterXOrSP : IArm64Register
             : throw new ArgumentOutOfRangeException(nameof(register), $"Invalid register kind {register.Kind}. Cannot cast to XOrSP.");
 }
 
+
 /// <summary>
 /// Represents a 64-bit register or the stack pointer.
 /// </summary>
 public readonly record struct Arm64RegisterWOrWSP : IArm64Register
 {
-#pragma warning disable CS0649 // Field is never assigned to, and will always have its default value
     private readonly int _value;
-#pragma warning restore CS0649 // Field is never assigned to, and will always have its default value
     
     /// <inheritdoc />
     public Arm64RegisterKind Kind => (Arm64RegisterKind)(_value >> 8);
@@ -166,14 +170,13 @@ public readonly record struct Arm64RegisterWOrWSP : IArm64Register
             : throw new ArgumentOutOfRangeException(nameof(register), $"Invalid register kind {register.Kind}. Cannot cast to WOrWSP.");
 }
 
+
 /// <summary>
 /// Represents a 64-bit register or the stack pointer.
 /// </summary>
 public readonly record struct Arm64RegisterXOrW : IArm64Register
 {
-#pragma warning disable CS0649 // Field is never assigned to, and will always have its default value
     private readonly int _value;
-#pragma warning restore CS0649 // Field is never assigned to, and will always have its default value
     
     /// <inheritdoc />
     public Arm64RegisterKind Kind => (Arm64RegisterKind)(_value >> 8);
@@ -245,3 +248,4 @@ public readonly record struct Arm64RegisterXOrW : IArm64Register
             ? Unsafe.BitCast<Arm64RegisterAny, Arm64RegisterXOrW>(register)
             : throw new ArgumentOutOfRangeException(nameof(register), $"Invalid register kind {register.Kind}. Cannot cast to XOrW.");
 }
+
